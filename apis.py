@@ -71,8 +71,8 @@ try:
     with open(".setting", "r") as fp:
         setting = json.load(fp)
 except Exception, e:
-    print pt.put_color(u"载入配置出错", "red")
+    print put_color(u"载入配置出错", "red")
     print str(e)
-    pt.log(traceback.format_exc(), level="error",
-           description="load setting failed!", path=".slave_log")
+    log(traceback.format_exc(), level="error",
+        description="load setting failed!", path=".slave_log")
     raise
