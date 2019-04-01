@@ -46,8 +46,8 @@ class Worker:
             mission = json.loads(msg)
         except Exception:  # json 格式有问题
             results['msg'] = 'The json has syntax error'
-        else:
-            if len(mission):  # json 不为空
+        else:  # json 不为空
+            if len(mission) == 1 and type(mission[list(mission)[0]]) == list:
                 api = list(mission)[0]  # 获取调用的 api 名
                 func = apis.apis.get(api, None)
                 if func:  # api 存在
@@ -76,7 +76,7 @@ Give me a json like:
             print pt.put_color(u"调用 _api() 时出现问题\n  [-]" + str(e), "red")
             print "-" * 50
             pt.log(
-                traceback.format_exc(), 
+                traceback.format_exc(),
                 level="error", description="Something went wrong in _api()",
                 path=".master_log"
             )
