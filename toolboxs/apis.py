@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-def _getImageList(mission, *arg):
-    print(arg)
+def _getImageList(mission, arg1, arg2):
+    print(arg1, arg2)
     return '{}'
 
 
