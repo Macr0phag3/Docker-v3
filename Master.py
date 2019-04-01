@@ -24,7 +24,7 @@ class Worker:
     def _getImageList(mission):
         return {}
 
-    def _api():  # ok
+    def _api(self):  # ok
         """
         处理 api 调用
         具体任务由 stoolbox.py 中的函数完成
