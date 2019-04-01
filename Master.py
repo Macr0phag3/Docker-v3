@@ -53,7 +53,7 @@ class Worker:
         else:  # json 不为空
             if len(mission) == 1 and type(mission[list(mission)[0]]) == list:
                 api = list(mission)[0]  # 获取调用的 api 名
-                func = api_list.get(api, None)
+                func = self.api_list.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
                     results['result'] = func(mission, *mission[api])
