@@ -56,7 +56,7 @@ class Worker:
             if 'mission' in mission:  # 任务格式正确
                 api = list(mission)[0]
 
-                func = funcs.get(api, None)
+                func = self.funcs.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
                     results['result'] = func(mission)
