@@ -17,6 +17,10 @@ class Worker:
 
     def __init__(self, conn):
         self.conn = conn  # socket 通道
+        self.api_list = {
+            i[4:]: getattr(apis, i)
+            for i in dir(apis) if i[:4] == 'api_'
+        }
 
     def _api(self):  # ok
         """
@@ -49,7 +53,7 @@ class Worker:
         else:  # json 不为空
             if len(mission) == 1 and type(mission[list(mission)[0]]) == list:
                 api = list(mission)[0]  # 获取调用的 api 名
-                func = apis.apis.get(api, None)
+                func = api_list.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
                     results['result'] = func(mission, *mission[api])
