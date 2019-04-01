@@ -2,7 +2,6 @@
 
 
 def _getImageList(mission, arg1, arg2):
-    print(arg1, arg2)
     return '{}'
 
 
