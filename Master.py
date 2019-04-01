@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
 import socket
-from toolboxs import ptoolbox as pt
 import json
 import traceback
 import time
 import threading
+
+from toolboxs import ptoolbox as pt
+from toolboxs import apis as apis
 
 
 class Worker:
@@ -15,14 +17,6 @@ class Worker:
 
     def __init__(self, conn):
         self.conn = conn  # socket 通道
-
-        # 新增的函数放在这
-        self.funcs = {
-            'getImageList': self._getImageList,
-        }
-
-    def _getImageList(mission):
-        return {}
 
     def _api(self):  # ok
         """
@@ -56,7 +50,7 @@ class Worker:
             if 'mission' in mission:  # 任务格式正确
                 api = list(mission)[0]
 
-                func = self.funcs.get(api, None)
+                func = apis.apis.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
                     results['result'] = func(mission)
