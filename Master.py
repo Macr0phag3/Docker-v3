@@ -5,8 +5,8 @@ import traceback
 import time
 import threading
 
-from toolboxs import ptoolbox as pt
-from toolboxs import apis as apis
+import toolbox
+import apis
 
 
 class Worker:
@@ -77,9 +77,9 @@ Give me a json like:
         try:
             self._api()
         except Exception, e:
-            print pt.put_color(u"调用 _api() 时出现问题\n  [-]" + str(e), "red")
+            print toolbox.put_color(u"调用 _api() 时出现问题\n  [-]" + str(e), "red")
             print "-" * 50
-            pt.log(
+            toolbox.log(
                 traceback.format_exc(),
                 level="error", description="Something went wrong in _api()",
                 path=".master_log"
@@ -118,7 +118,7 @@ class Master:
         sk.bind((ip, port))
         sk.listen(1)
 
-        print pt.put_color('Master is online', "green")
+        print toolbox.put_color('Master is online', "green")
         while 1:
             try:
                 conn, from_ip = sk.accept()
@@ -130,15 +130,15 @@ class Master:
                     th.start()
                 else:
                     msg = u"来自 %s:%s 的非法访问. Silence is gold" % from_ip
-                    print pt.put_color(msg, "yellow")
+                    print toolbox.put_color(msg, "yellow")
                     conn.sendall('Silence is gold...')
             except KeyboardInterrupt:
-                print pt.put_color('Master is offline', "red")
+                print toolbox.put_color('Master is offline', "red")
                 break
             except Exception, e:
-                print pt.put_color(u"出现一个隐藏问题\n  [-]" + str(e), "red")
+                print toolbox.put_color(u"出现一个隐藏问题\n  [-]" + str(e), "red")
                 print "-" * 50
-                pt.log(
+                toolbox.log(
                     traceback.format_exc(), level="error",
                     description="Master reported an error",
                     path=".master_log"
