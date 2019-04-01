@@ -31,11 +31,11 @@ class Worker:
         }
         """
 
-        results = json.dumps({
+        results = {
             "code": 1,
             "msg": "",
             "result": ""
-        })
+        }
 
         msg = self.conn.recv(1024)
 
@@ -48,7 +48,7 @@ class Worker:
             results['msg'] = 'The json has syntax error'
         else:
             if len(mission):  # json 不为空
-                api = list(mission)[0] # 获取调用的 api 名
+                api = list(mission)[0]  # 获取调用的 api 名
                 func = apis.apis.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
@@ -62,7 +62,7 @@ Give me a json like:
     "api_name": ["arg1", "arg2"]
 }'''
 
-        self.conn.sendall(results)
+        self.conn.sendall(json.dumps(results))
 
     def working(self):
         '''
@@ -76,7 +76,8 @@ Give me a json like:
             print pt.put_color(u"调用 _api() 时出现问题\n  [-]" + str(e), "red")
             print "-" * 50
             pt.log(
-                traceback.format_exc(), level="error", description="调用 _api() 时出现问题",
+                traceback.format_exc(), 
+                level="error", description="Something went wrong in _api()",
                 path=".master_log"
             )
 
@@ -135,7 +136,8 @@ class Master:
                 print "-" * 50
                 pt.log(
                     traceback.format_exc(), level="error",
-                    description="Master reported an error", path=".master_log"
+                    description="Master reported an error",
+                    path=".master_log"
                 )
                 break
 
