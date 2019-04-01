@@ -47,22 +47,19 @@ class Worker:
         except Exception:  # json 格式有问题
             results['msg'] = 'The json has syntax error'
         else:
-            if 'mission' in mission:  # 任务格式正确
-                api = list(mission)[0]
-
+            if len(mission):  # json 不为空
+                api = list(mission)[0] # 获取调用的 api 名
                 func = apis.apis.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
-                    results['result'] = func(mission)
+                    results['result'] = func(mission, *mission[api])
                 else:
                     results['msg'] = 'This api was gone with wind'
             else:
                 results['msg'] = '''
 Give me a json like:
 {
-    "mission": {
-        "getImageList": "test"
-    }
+    "api_name": ["arg1", "arg2"]
 }'''
 
         self.conn.sendall(results)
