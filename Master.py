@@ -74,7 +74,7 @@ class Worker:
 
         self.conn.sendall(results)
 
-    def working():
+    def working(self):
         '''
         多线程处理 api 调用
         具体的事情留给 _api() 处理，这里只处理异常
