@@ -121,7 +121,7 @@ class Master:
         # 防止 ctrl+c 后占用端口
         sk.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sk.bind((ip, port))
-        sk.listen(100)
+        sk.listen(1)
 
         print pt.put_color('Master is online', "green")
         while 1:
