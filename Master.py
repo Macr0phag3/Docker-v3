@@ -56,7 +56,7 @@ class Worker:
                 func = self.api_list.get(api, None)
                 if func:  # api 存在
                     results['code'] = 0
-                    results['result'] = func(mission, *mission[api])
+                    results['result'] = func(*mission[api]) # 调用 api
                 else:
                     results['msg'] = 'This api was gone with wind'
             else:

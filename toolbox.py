@@ -44,7 +44,7 @@ def send_mission(ip, mission, port=1122, timeout=60):  # ok
 
     参数
     1. ip: slave 的 ip
-    2. mission: 具体任务, 格式如下：
+    2. mission，字典: 具体任务, 格式如下：
         {
             "mission": "", # 具体的任务
             "commands":
@@ -89,7 +89,7 @@ def send_mission(ip, mission, port=1122, timeout=60):  # ok
         server_reply = sk.recv(1024)
 
         if server_reply == "hello, my master":  # 认证成功
-            sk.sendall(mission)
+            sk.sendall(json.dumps(mission))
             dicts = json.loads(sk.recv(1024000))
             sk.close()
         else:  # 认证失败

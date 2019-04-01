@@ -7,12 +7,6 @@ import toolbox
 # !!! api 约定 !!!
 '''
 - api 函数命名：api_xxxx
-- api 函数至少有一个参数，叫 mission，mission 示例:
-{
-    "mission": {
-        "getImageList": ["test"]
-    }
-}
 
 - api 函数必须返回 json，示例:
 dicts = {
@@ -25,20 +19,28 @@ dicts = {
 # ------------- 镜像相关 -------------
 
 
-def api_getImageList(mission):
+def api_getImageList():
     return '{}'
 
 
-def api_pullImage(mission):
+def api_pullImage():
     return '{}'
 
 
-def api_deleteImage(mission):
+def api_deleteImage():
     return '{}'
 
 # ------------- 容器相关 -------------
 
 
-def api_getContainerList(mission):
-    send_mission()
-    return '{}'
+def api_getContainerList():
+    mission = {
+        "mission": "cmd2docker",  # 具体的任务
+        "commands":
+            {
+                "command": "containers_ls",  # 具体的命令
+                "arg": [],  # 参数列表
+            }
+    }
+
+    return toolbox.send_mission('192.168.12.1', mission)
