@@ -50,7 +50,7 @@ def api_getContainerList():
         "msg": "",
         "result": {
             i: {
-                'code': 1,
+                'code': 0,
                 'msg': '',
                 'result': []
             } for i in setting["slave_ip"]
@@ -60,10 +60,10 @@ def api_getContainerList():
     for ip in setting["slave_ip"]:
         result = json.loads(toolbox.send_mission(ip, mission))
         if result["code"]:
-            results['result']['ip']['msg'] = result['msg']
+            results['result'][ip]['code'] = 1
+            results['result'][ip]['msg'] = result['msg']
         else:
-            results['result']['ip']['code'] = 0
-            results['result']['ip']['result'] = result['result']
+            results['result'][ip]['result'] = result['result']
 
     return results
 
