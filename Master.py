@@ -58,13 +58,12 @@ class Worker:
                     results['msg'] = 'This api was gone with wind'
             else:
                 results['msg'] = '''
-    Give me a json like:
-    {
-        "mission": {
-            "getImageList": "test"
-        }
+Give me a json like:
+{
+    "mission": {
+        "getImageList": "test"
     }
-    '''
+}'''
 
         self.conn.sendall(results)
 
@@ -80,8 +79,8 @@ class Worker:
             print pt.put_color(u"调用 _api() 时出现问题\n  [-]" + str(e), "red")
             print "-" * 50
             pt.log(
-                traceback.format_exc(), level="error", description="调用 _api() 时出现问题" %
-                st.setting["bridge"]["self_ip"], path=".master_log"
+                traceback.format_exc(), level="error", description="调用 _api() 时出现问题",
+                path=".master_log"
             )
 
             self.conn.sendall(json.dumps([{

@@ -8,6 +8,13 @@ def _getImageList(mission):
 # 新增的 api 放在这
 # api 约定：
 '''
+- mission 格式为：
+{
+    "mission": {
+        "getImageList": "test"
+    }
+}
+
 - 必须返回 json
 
 '''
