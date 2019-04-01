@@ -3,6 +3,7 @@
 import toolbox
 import json
 import traceback
+import docker
 
 # 新增的 api 放在这
 
@@ -36,6 +37,9 @@ def api_deleteImage():
 
 
 def api_getContainerList():
+    '''
+    所有容器的列表
+    '''
     mission = {
         "mission": "cmd2docker",  # 具体的任务
         "commands":
@@ -68,6 +72,40 @@ def api_getContainerList():
     return results
 
 
+def api_getImageList():
+    """
+    所有镜像的列表
+
+    返回值示例
+    dicts = {
+        "code": 1,
+        "msg": "",
+        "result": [
+            "image_name_1",
+            "image_name_2"
+        ]
+    }
+    """
+    dicts = {
+        "code": 0,
+        "msg": "",
+        "result": []
+    }
+
+    try:
+        dicts["result"] = [i.tags[0] for i in docker.from_env().images.list()]
+
+    except Exception, e:
+        toolbox.log(traceback.format_exc(), level="error",
+                    description="get all images failed", path=".slave_log")
+
+        dicts["code"] = 1
+        dicts["msg"] = "master(%s) report a error: %s" % (
+            setting["bridge"]["self_ip"], str(e))
+
+    return json.dumps(dicts)
+
+
 # ------------- 载入配置 -------------
 try:
     with open(".setting", "r") as fp:
@@ -76,5 +114,5 @@ except Exception, e:
     print toolbox.put_color(u"载入配置出错", "red")
     print str(e)
     toolbox.log(traceback.format_exc(), level="error",
-        description="load setting failed!", path=".slave_log")
+                description="load setting failed!", path=".slave_log")
     raise
