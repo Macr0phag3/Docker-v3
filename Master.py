@@ -55,8 +55,7 @@ class Worker:
                 api = list(mission)[0]  # 获取调用的 api 名
                 func = self.api_list.get(api, None)
                 if func:  # api 存在
-                    results['code'] = 0
-                    results['result'] = func(*mission[api]) # 调用 api
+                    results = func(*mission[api]) # 调用 api
                 else:
                     results['msg'] = 'This api was gone with wind'
             else:
