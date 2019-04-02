@@ -55,14 +55,14 @@ class Worker:
                 api = list(mission)[0]  # 获取调用的 api 名
                 func = self.api_list.get(api, None)
                 if func:  # api 存在
-                    results = func(*mission[api]) # 调用 api
+                    results = func(**mission[api]) # 调用 api
                 else:
                     results['msg'] = 'This api was gone with wind'
             else:
                 results['msg'] = '''
 Give me a json like:
 {
-    "api_name": ["arg1", "arg2"]
+    "api_name": {"arg1": "value", "arg2": "value"}
 }'''
 
         self.conn.sendall(json.dumps(results))
