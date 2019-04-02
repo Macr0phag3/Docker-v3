@@ -82,7 +82,7 @@ def api_pullImages(image_names):
         }
     }
 
-    for ip in ['192.168.12.1']:  # setting["slave_ip"]:
+    for ip in setting["slave_ip"]:
         result = json.loads(toolbox.send_mission(ip, mission))
         if result["code"]:
             results['result'][ip]['code'] = 1
