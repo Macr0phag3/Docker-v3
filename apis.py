@@ -12,7 +12,7 @@ import os
 '''
 - api 函数命名：api_xxxx
 
-- api 函数必须返回 json，示例:
+- api 函数必须返回字典，示例:
 results = {
     "code": 0,
     "msg": "",
@@ -87,23 +87,23 @@ def api_getImageList():
         ]
     }
     """
-    dicts = {
+    results = {
         "code": 0,
         "msg": "",
         "result": []
     }
 
     try:
-        dicts["result"] = json.dumps(json.loads(os.system('curl 127.0.0.1:5000/v2/_catalog'))['repositories'])
+        results["result"] = json.loads(os.system('curl 127.0.0.1:5000/v2/_catalog'))['repositories']
     except Exception, e:
         toolbox.log(traceback.format_exc(), level="error",
                     description="get all images failed", path=".slave_log")
 
-        dicts["code"] = 1
-        dicts["msg"] = "master(%s) report a error: %s" % (
+        results["code"] = 1
+        results["msg"] = "master(%s) report a error: %s" % (
             setting["bridge"]["self_ip"], str(e))
 
-    return json.dumps(dicts)
+    return results
 
 def api_pullImageList():
     """
