@@ -4,7 +4,7 @@ import toolbox
 import json
 import traceback
 import docker
-import os
+import commands
 
 # 新增的 api 放在这
 
@@ -94,7 +94,7 @@ def api_getImageList():
     }
 
     try:
-        results["result"] = json.loads(os.system('curl 127.0.0.1:5000/v2/_catalog'))['repositories']
+        results["result"] = json.loads(commands.getoutput('curl 127.0.0.1:5000/v2/_catalog'))['repositories']
     except Exception, e:
         toolbox.log(traceback.format_exc(), level="error",
                     description="get all images failed", path=".slave_log")
