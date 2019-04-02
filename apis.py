@@ -4,6 +4,7 @@ import toolbox
 import json
 import traceback
 import docker
+import os
 
 # 新增的 api 放在这
 
@@ -73,6 +74,38 @@ def api_getContainerList():
 
 
 def api_getImageList():
+    """
+    所有镜像的列表
+
+    返回值示例
+    dicts = {
+        "code": 1,
+        "msg": "",
+        "result": [
+            "image_name_1",
+            "image_name_2"
+        ]
+    }
+    """
+    dicts = {
+        "code": 0,
+        "msg": "",
+        "result": []
+    }
+
+    try:
+        dicts["result"] = json.loads(os.system('curl 127.0.0.1:5000/v2/_catalog'))['repositories']
+    except Exception, e:
+        toolbox.log(traceback.format_exc(), level="error",
+                    description="get all images failed", path=".slave_log")
+
+        dicts["code"] = 1
+        dicts["msg"] = "master(%s) report a error: %s" % (
+            setting["bridge"]["self_ip"], str(e))
+
+    return json.dumps(dicts)
+
+def api_pullImageList():
     """
     所有镜像的列表
 
