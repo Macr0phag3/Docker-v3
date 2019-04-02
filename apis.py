@@ -66,7 +66,7 @@ def api_pullImages(image_names):
         "mission": "cmd2slave",  # 具体的任务
         "commands": {
             "command": "pull_images",  # 具体的命令
-            "arg": image_names,  # 参数列表
+            "arg": [image_names],  # 参数列表
         }
     }
 
