@@ -77,7 +77,7 @@ def api_pullImages(image_names):
             i: {
                 'code': 0,
                 'msg': '',
-                'result': ''
+                'result': {}
             } for i in setting["slave_ip"]
         }
     }
