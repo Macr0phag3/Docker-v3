@@ -51,7 +51,7 @@ class Worker:
         except Exception:  # json 格式有问题
             results['msg'] = 'The json has syntax error'
         else:  # json 不为空
-            if len(mission) == 1 and type(mission[list(mission)[0]]) == list:
+            if len(mission) == 1 and type(mission[list(mission)[0]]) == dict:
                 api = list(mission)[0]  # 获取调用的 api 名
                 func = self.api_list.get(api, None)
                 if func:  # api 存在
