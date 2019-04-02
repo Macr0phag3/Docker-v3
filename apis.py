@@ -94,7 +94,7 @@ def api_getImageList():
     }
 
     try:
-        dicts["result"] = json.loads(os.system('curl 127.0.0.1:5000/v2/_catalog'))['repositories']
+        dicts["result"] = json.dumps(json.loads(os.system('curl 127.0.0.1:5000/v2/_catalog'))['repositories'])
     except Exception, e:
         toolbox.log(traceback.format_exc(), level="error",
                     description="get all images failed", path=".slave_log")
