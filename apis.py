@@ -93,7 +93,7 @@ def api_pullImages(image_names):
     return results
 
 
-def api_deleteImages():
+def api_deleteImages(image_names):
     '''
     删除镜像
     1. image_names: 镜像名，列表
