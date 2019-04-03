@@ -53,6 +53,10 @@ def cmd2slave(commands):
     elif commands["command"] == "pull_images":
         return pull_images(*commands["arg"])
 
+
+    elif commands["command"] == "delete_images":
+        return delete_images(*commands["arg"])
+
     else:
         return json.dumps({
             "code": 1,
@@ -74,7 +78,7 @@ def delete_images(image_names):
     client = docker.APIClient(base_url='unix://var/run/docker.sock')
     for image_name in image_names:
         try:
-            client.remove(image_name)
+            client.remove_image(image_name)
             dicts['result'][image_name] = 'success'
         except Exception, e:
             dicts["code"] = 1
@@ -533,3 +537,4 @@ except Exception, e:
     pt.log(traceback.format_exc(), level="error",
            description="load setting failed!", path=".slave_log")
     raise
+
