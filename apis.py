@@ -94,7 +94,40 @@ def api_pullImages(image_names):
 
 
 def api_deleteImages():
-    return '{}'
+    '''
+    删除镜像
+    1. image_names: 镜像名，列表
+    '''
+    mission = {
+        "mission": "cmd2slave",  # 具体的任务
+        "commands": {
+            "command": "delete_images",  # 具体的命令
+            "arg": [image_names],  # 参数列表
+        }
+    }
+
+    results = {
+        "code": 0,
+        "msg": "",
+        "result": {
+            i: {
+                'code': 0,
+                'msg': '',
+                'result': {}
+            } for i in setting["slave_ip"]
+        }
+    }
+
+    for ip in setting["slave_ip"]:
+        result = json.loads(toolbox.send_mission(ip, mission, timeout=60*60))
+        if result["code"]:
+            results['result'][ip]['code'] = 1
+            results['result'][ip]['msg'] = result['msg']
+        else:
+            results['result'][ip]['result'] = result['result']
+
+    return results
+
 
 # ------------- 容器相关 -------------
 
