@@ -118,7 +118,7 @@ def api_deleteImages():
         }
     }
 
-    for ip in setting["slave_ip"]:
+    for ip in ['192.168.12.1']:#setting["slave_ip"]:
         result = json.loads(toolbox.send_mission(ip, mission, timeout=60*60))
         if result["code"]:
             results['result'][ip]['code'] = 1
