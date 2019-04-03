@@ -83,7 +83,7 @@ def api_pullImages(image_names):
     }
 
     for ip in setting["slave_ip"]:
-        result = json.loads(toolbox.send_mission(ip, mission, timeout=60*60))
+        result = json.loads(toolbox.send_mission(ip, mission, timeout=60 * 60))
         if result["code"]:
             results['result'][ip]['code'] = 1
             results['result'][ip]['msg'] = result['msg']
@@ -118,8 +118,8 @@ def api_deleteImages(image_names):
         }
     }
 
-    for ip in ['192.168.12.1']:#setting["slave_ip"]:
-        result = json.loads(toolbox.send_mission(ip, mission, timeout=60*60))
+    for ip in setting["slave_ip"]:
+        result = json.loads(toolbox.send_mission(ip, mission, timeout=60 * 60))
         if result["code"]:
             results['result'][ip]['code'] = 1
             results['result'][ip]['msg'] = result['msg']
