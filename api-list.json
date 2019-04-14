@@ -1,0 +1,17 @@
+{
+    "getImagesList": {}
+}
+
+
+{
+    "pullImages": {"image_names": ["192.168.26.7:5000/v2/think-rce-new"]}
+}
+
+
+{
+    "deleteImages": {"image_names": ["192.168.26.7:5000/v2/think-rce-new"]}
+}
+
+{
+    "getContainersList": {}
+}

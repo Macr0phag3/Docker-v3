@@ -43,10 +43,11 @@ def api_getImagesList():
         "result": []
     }
 
+    host='192.168.26.7:5000/'
     try:
-        results["result"] = json.loads(commands.getoutput(
-            'curl -s 127.0.0.1:5000/v2/_catalog'))['repositories']
-    except Exception, e:
+        results["result"] = [host+i for i in json.loads(commands.getoutput(
+            'curl -s 127.0.0.1:5000/v2/_catalog'))['repositories']]
+    except Exception as e:
         toolbox.log(traceback.format_exc(), level="error",
                     description="get all images failed", path=".slave_log")
 
@@ -172,7 +173,7 @@ def api_getContainersList():
 try:
     with open(".setting", "r") as fp:
         setting = json.load(fp)
-except Exception, e:
+except Exception as e:
     print toolbox.put_color(u"载入配置出错", "red")
     print str(e)
     toolbox.log(traceback.format_exc(), level="error",
